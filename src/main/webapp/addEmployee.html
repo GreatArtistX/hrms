@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增用户数据</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/layui/2.7.6/css/layui.css"/>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <form class="layui-form" action="">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户ID</label>
+            <div class="layui-input-block">
+                <input type="text" name="id" v-model="employee.id" id="id" required lay-verify="required"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" v-model="employee.name" id="name" required lay-verify="required"
+                       placeholder="请输入用户名称"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="text" name="gender" v-model="employee.gender" id="gender" required lay-verify="required"
+                       placeholder="请输入用户年龄"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">政治面貌</label>
+            <div class="layui-input-block">
+                <input type="text" name="politics" v-model="employee.politics" id="politics" required lay-verify="required"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-block">
+                <input type="text" name="age" v-model="employee.age" id="age" required lay-verify="required"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">职位</label>
+            <div class="layui-input-block">
+                <input type="text" name="job" v-model="employee.job" id="job" required lay-verify="required"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门</label>
+            <div class="layui-input-block">
+                <input type="text" name="department" v-model="employee.department" id="department" required lay-verify="required"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-block">
+                <input type="text" name="phone" v-model="employee.phone" id="phone" required lay-verify="required"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">奖惩</label>
+            <div class="layui-input-block">
+                <input type="text" name="award" v-model="employee.award" id="award" required lay-verify="required"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="button" class="layui-btn" @click="suAddEmployee()" value="立即提交">
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                employee: {}
+            }
+        },
+        methods: {
+            suAddEmployee() {
+                var _this = this;
+                axios({
+                    method: "POST",
+                    url: "http://localhost:8080/employee/insertEmployee",
+                    data: _this.employee,
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    }
+                }).then(resp => {
+                    var code = resp.data.code;
+                    if (code == "200") {
+                        alert("新增数据成功");
+                        window.location.href = "index.html";
+                    } else {
+                        alert("新增数据失败");
+                    }
+
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>
